@@ -5,189 +5,133 @@ description: Use when asked to create, modify, or improve UI components, section
 
 ## Contexto do Projeto
 
-Portfólio de Pedro França — Data Analyst & RevOps. Single-page application com tema escuro, estética data-driven.
+Portfólio de Pedro França — **Business Intelligence · RevOps · Martech** na StartSe. Single-page application com estética **editorial / paper-warm** (tema claro, fundo creme). Reformulado do zero em 2026 a partir de um design pronto.
 
 **Stack:**
-- Next.js 16 com App Router
-- React 19
-- TypeScript (strict)
-- Framer Motion para animações
-- Lucide React para ícones
-- CSS global em `src/app/globals.css` (sem Tailwind, sem CSS Modules)
+- Next.js 16 (App Router) · React 19 · TypeScript (strict)
+- Framer Motion (animações) — com `<MotionConfig reducedMotion="user">` em `src/app/providers.tsx`
+- **SEM Tailwind, SEM bibliotecas de ícones, SEM CSS Modules.** Dependências: só `next`, `react`, `react-dom`, `framer-motion`.
+- Fontes via `next/font/google` (em `layout.tsx`): **Bricolage Grotesque** (display), **Archivo** (corpo), **JetBrains Mono** (labels).
+- Imagens via `next/image`. Ícones = glifos de texto (ex.: `↗`) ou quadradinhos coloridos (`.skill-dot`), nunca biblioteca.
+- Estilo = **classes CSS** em `src/app/globals.css`. Inline `style` só para o acento dinâmico `--acc`.
 
 ---
 
-## Design System
+## Design System (variáveis CSS em `globals.css`)
 
-### Paleta de Cores (variáveis CSS)
+### Cores
 ```css
---bg-primary: #0a0a1a        /* fundo principal */
---bg-secondary: #0f0f2e      /* fundo alternativo */
---bg-card: rgba(15,15,46,0.6)
---bg-card-hover: rgba(25,25,60,0.8)
---bg-glass: rgba(15,15,46,0.4)
+/* Superfícies */
+--paper: #f4f1ea       /* fundo principal (creme) */
+--paper-2: #fff        /* cards claros */
+--line: #e3ddd0        /* bordas/divisórias */
 
---text-primary: #e8e8f0
---text-secondary: #9d9db8
---text-muted: #6b6b8a
+/* Tinta */
+--ink: #1f1d1a         /* texto principal */
+--ink-soft: #3a352e    /* texto de corpo */
+--muted: #7a7164       /* texto secundário */
+--muted-2: #9b948a
 
---accent-blue: #6366f1
---accent-purple: #8b5cf6
---accent-cyan: #22d3ee
---accent-pink: #ec4899
---accent-green: #10b981
+/* Seção escura (Projetos) */
+--dark: #1f1d1a        --dark-card: #26231e     --dark-line: #34302a
+--dark-line-2: #3a352e --dark-text: #f4f1ea     --dark-text-soft: #c9c3b9
+--dark-muted: #8f897f
 
---gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6)
---gradient-secondary: linear-gradient(135deg, #8b5cf6, #ec4899)
---gradient-cyan: linear-gradient(135deg, #22d3ee, #6366f1)
---gradient-glow: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15))
-
---border-color: rgba(99,102,241,0.15)
---border-hover: rgba(99,102,241,0.4)
+/* Acentos — paleta Tri-cor (FIXA) */
+--a1: #c2603e          /* terracota */
+--a2: #2f8f86          /* teal */
+--a3: #6b5bd1          /* roxo */
+--acc: var(--a1)       /* acento corrente — sobrescrito por elemento (ver abaixo) */
 ```
 
 ### Tipografia
 ```css
---font-sans: 'Inter', -apple-system, sans-serif   /* corpo */
---font-mono: 'JetBrains Mono', monospace          /* labels, código, badges */
+--font-display: var(--font-bricolage), sans-serif   /* títulos h1/h2/h3, números de stat */
+--font-body:    var(--font-archivo), sans-serif      /* corpo, links de nav */
+--font-mono:    var(--font-jetbrains), monospace     /* eyebrows, tags, labels */
+```
+Títulos sempre `font-weight: 800`, `letter-spacing: -0.02em`, `line-height: 1`. Use `clamp()` para tamanhos responsivos (já aplicado em `.hero-title`, `h2` das seções).
+
+### Forma e layout
+```css
+--rad: 12px   --rad-sm: 8px   --rad-pill: 999px
+--maxw: 1120px   --pad-x: 32px (20px no mobile)   --nav-h: 84px
 ```
 
-### Espaçamento e Layout
-```css
---section-padding: 100px 0
---container-width: 1200px
---container-padding: 0 24px
---radius-sm: 8px | --radius-md: 12px | --radius-lg: 16px | --radius-xl: 24px | --radius-full: 9999px
+### O padrão de acento `--acc`
+Cada card/seção define seu acento setando `--acc` inline; o CSS lê `var(--acc)`:
+```tsx
+<div className="domain-tile" style={{ ["--acc" as string]: "var(--a1)" }}>
 ```
-
-### Sombras e Efeitos
-```css
---shadow-card: 0 4px 30px rgba(0,0,0,0.3)
---shadow-glow: 0 0 40px rgba(99,102,241,0.15)
---shadow-glow-strong: 0 0 60px rgba(99,102,241,0.3)
-```
-
-### Transições
-```css
---transition-fast: 0.2s cubic-bezier(0.4,0,0.2,1)
---transition-medium: 0.3s cubic-bezier(0.4,0,0.2,1)
---transition-slow: 0.5s cubic-bezier(0.4,0,0.2,1)
-```
+Classes que consomem `--acc`: `.eyebrow`, `.domain-tile`, `.project-bar`, `.stat-num.accent`, `.skill-dot`. O cast `["--acc" as string]` é obrigatório (passa no tsc; não use `as React.CSSProperties`).
 
 ---
 
-## Classes Utilitárias Disponíveis
+## Classes utilitárias principais
 
 | Classe | Uso |
 |---|---|
-| `.container` | Wrapper com max-width e padding |
-| `.section` | Padding vertical padrão de seção |
-| `.section-header` | Cabeçalho centralizado com margin-bottom |
-| `.section-label` | Badge superior monospace com borda cyan |
-| `.section-title` | Título h2 da seção |
-| `.section-subtitle` | Subtítulo muted centralizado |
-| `.gradient-text` | Texto com gradiente blue→purple |
-| `.gradient-text-cyan` | Texto com gradiente cyan→blue |
-| `.card` | Card glass com hover elevação |
-| `.glass` | Efeito glassmorphism |
-| `.btn` | Base de botão |
-| `.btn-primary` | Botão gradiente com glow |
-| `.btn-secondary` | Botão outline glass |
+| `.container` | Wrapper `max-width:1120px` + padding horizontal |
+| `.eyebrow` | Label mono em CAPS com `letter-spacing` (cor = `--acc`). Convenção: prefixo `/ Seção` |
+| `.en` | Subtítulo bilíngue em inglês (cor muted) — o site é PT com linha EN abaixo |
+
+Cada seção tem sua **família de classes** própria (não há `.card`/`.btn-primary` genéricos do design antigo). Famílias existentes em `globals.css`: `nav-*`, `hero-* / domain-* / intro-* / tag-*`, `about-* / quote`, `projects-* / project-* / stat-* / tag(s)`, `skills-* / skill-*`, `exp-*`, `contact-* / btn-light / btn-ghost / footer-*`. **Leia `globals.css` antes** para reutilizar ou estender.
 
 ---
 
 ## Padrões de Componente
 
-### Estrutura de Seção
+### Seção (server component por padrão)
+Seções estáticas NÃO levam `"use client"`. Use o wrapper `Reveal` para a animação de entrada:
 ```tsx
-"use client";
+import Reveal from "@/components/Reveal";
 
-import { motion } from "framer-motion";
-import { IconName } from "lucide-react";
-
-export default function SectionName() {
+export default function Secao() {
   return (
-    <section id="section-id" className="section">
-      <div className="container">
-        <motion.div
-          className="section-header"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="section-label">
-            <IconName size={14} />
-            Label em maiúsculas
-          </div>
-          <h2 className="section-title">
-            Título com{" "}
-            <span className="gradient-text">Destaque</span>
-          </h2>
-          <p className="section-subtitle">Descrição opcional</p>
-        </motion.div>
-
-        {/* Conteúdo da seção */}
-      </div>
+    <section id="secao" className="secao">
+      <Reveal>
+        <div className="eyebrow" style={{ ["--acc" as string]: "var(--a2)" }}>
+          / Seção
+        </div>
+        <h2>Título da seção</h2>
+        <p className="en">English subtitle.</p>
+      </Reveal>
+      {/* conteúdo */}
     </section>
   );
 }
 ```
 
-### Animações com Framer Motion
+### Animação de entrada — sempre via `Reveal`
+`src/components/Reveal.tsx` encapsula o fade-up (`whileInView` + `once:true`, easing suave, respeita reduced-motion). Para listas, escalone com `delay`:
 ```tsx
-// Entrada de item com delay escalonado
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5, delay: index * 0.1 }}
->
-
-// Hover com escala
-<motion.div whileHover={{ scale: 1.02, y: -4 }}>
-
-// Loop infinito (ex: scroll indicator)
-<motion.div
-  animate={{ y: [0, 10, 0] }}
-  transition={{ duration: 2, repeat: Infinity }}
->
+{items.map((item, i) => (
+  <Reveal key={item.id} delay={(i % 2) * 0.08}>
+    <article className="...">{/* ... */}</article>
+  </Reveal>
+))}
 ```
+Não recrie `motion.div` com `initial/whileInView` à mão — use `Reveal`. Só importe `framer-motion` direto para casos especiais (ex.: hover/loop), e nesse caso o arquivo precisa de `"use client"`.
 
-### Card Padrão
+### Acento por item (data-driven)
+Dados em `src/data/` carregam o acento como string de variável (`"--a1" | "--a2" | "--a3" | "--ink"`):
 ```tsx
-<motion.div
-  className="card"
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5, delay: index * 0.1 }}
-  whileHover={{ y: -4 }}
->
-  {/* conteúdo */}
-</motion.div>
-```
-
-### Section Label (badge)
-```tsx
-<div className="section-label">
-  <Icon size={14} />
-  TEXTO EM CAPS
-</div>
+<article className="project-card" style={{ ["--acc" as string]: `var(${p.accent})` }}>
 ```
 
 ---
 
 ## Regras de Implementação
 
-1. **CSS global apenas** — adicionar estilos em `src/app/globals.css`. Nunca criar arquivos `.module.css` para componentes.
-2. **Variáveis CSS sempre** — usar `var(--nome)` para cores, espaçamentos e transições. Nunca hardcodar valores do design system.
-3. **"use client"** — obrigatório em qualquer componente que use hooks, eventos ou Framer Motion.
-4. **Framer Motion com `whileInView`** — usar `viewport={{ once: true }}` para não reanimar ao fazer scroll para cima.
-5. **Ícones do Lucide** — verificar disponibilidade no pacote `lucide-react` antes de usar.
-6. **Responsivo** — toda seção deve ter breakpoints para `max-width: 768px` e `max-width: 480px`.
-7. **Sem inline styles desnecessários** — preferir classes CSS. Usar `style={{}}` apenas para valores dinâmicos.
-8. **TypeScript** — tipar props de componentes. Usar interfaces para objetos de dados.
+1. **Classes CSS em `globals.css`** — nunca `.module.css`. Inline `style` só para `--acc` dinâmico.
+2. **Variáveis CSS sempre** (`var(--paper)`, `var(--a1)`, `var(--rad)`…). Nunca hardcodar cor/raio/espaçamento.
+3. **`"use client"` só quando necessário** — hooks, eventos ou `framer-motion` direto. Seções estáticas ficam server components (usam `Reveal`, que já é client).
+4. **Animação via `Reveal`** (`whileInView`, `once:true`). `<MotionConfig reducedMotion="user">` já cuida de acessibilidade — não duplicar.
+5. **Imagens com `next/image`** (`fill` + `sizes`), nunca `<img>`. Assets em `public/assets/`.
+6. **Ícones = glifos/CSS**, não biblioteca (não há lucide/iconscout instalados).
+7. **Responsivo** — breakpoints `max-width: 768px` e `480px` no fim de `globals.css`. Padrão mobile: grids viram 1 coluna; nav colapsa em menu hambúrguer.
+8. **Bilíngue** — títulos/subtítulos em PT com linha EN (`.en`) logo abaixo, quando fizer sentido.
+9. **TypeScript** — tipar props e dados com `interface`.
 
 ---
 
@@ -196,35 +140,38 @@ export default function SectionName() {
 ```
 src/
 ├── app/
-│   ├── globals.css       ← Design system + estilos globais
-│   ├── layout.tsx        ← Layout raiz com metadata
-│   └── page.tsx          ← Composição das seções
+│   ├── globals.css          ← Design system + todas as classes
+│   ├── layout.tsx           ← Fontes (next/font), metadata, theme-color
+│   ├── providers.tsx        ← <MotionConfig reducedMotion="user">
+│   ├── page.tsx             ← Composição das seções
+│   ├── opengraph-image.tsx  ← OG image (next/og)
+│   └── icon.tsx             ← Favicon (next/og)
 ├── components/
-│   ├── Navbar.tsx
-│   ├── Footer.tsx
+│   ├── Navbar.tsx           ← "use client" (menu mobile)
+│   ├── Reveal.tsx           ← "use client" (fade-up reutilizável)
 │   └── sections/
-│       ├── Hero.tsx
+│       ├── Hero.tsx         ← "use client" (next/image + tiles)
 │       ├── About.tsx
+│       ├── Projects.tsx     ← seção escura, cards de projeto
 │       ├── Skills.tsx
-│       ├── Dashboards.tsx
-│       └── Contact.tsx
+│       ├── Experience.tsx
+│       └── Contact.tsx      ← inclui o footer
 └── data/
-    ├── skills.ts         ← Dados das habilidades
-    └── dashboards.ts     ← Dados dos dashboards
+    ├── projects.ts          ← 4 projetos (description em HTML)
+    └── skills.ts            ← skillGroups (4 grupos)
 ```
 
-Novos componentes de seção vão em `src/components/sections/`.
-Dados estáticos vão em `src/data/` como arrays TypeScript exportados.
+Novas seções vão em `src/components/sections/` e são registradas em `page.tsx`. Dados estáticos em `src/data/` como arrays tipados.
 
 ---
 
 ## Ao criar ou modificar componentes
 
-1. Leia o arquivo do componente antes de editar
-2. Leia `globals.css` se precisar adicionar classes novas
-3. Siga os padrões de animação já estabelecidos (delays escalonados, `whileInView`, `once: true`)
-4. Mantenha consistência visual com as seções existentes
-5. Adicione estilos responsivos ao final do bloco CSS correspondente em `globals.css`
-6. Ao criar nova seção, registre no `page.tsx`
+1. Leia o arquivo antes de editar.
+2. Leia `globals.css` para reutilizar classes/variáveis existentes antes de criar novas.
+3. Mantenha a estética editorial: fundo creme, Bricolage para títulos grandes, eyebrows mono `/ Seção`, acentos via `--acc`, cantos `--rad`.
+4. Use `Reveal` para entradas; escalone `delay` em listas.
+5. Adicione estilos responsivos ao bloco `@media` no fim de `globals.css`.
+6. `next/image` para imagens; glifos/CSS para ícones.
 
 $ARGUMENTS
