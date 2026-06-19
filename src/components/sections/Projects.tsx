@@ -28,9 +28,21 @@ export default function Projects() {
               >
                 <div className="project-bar">
                   <span className="project-bar-label">{p.barLabel}</span>
-                  <span className="project-bar-arrow" aria-hidden="true">
-                    ↗
-                  </span>
+                  <svg
+                    className="project-bar-arrow"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
                 </div>
 
                 <div className="project-img">

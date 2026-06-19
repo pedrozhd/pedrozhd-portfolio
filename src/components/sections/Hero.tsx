@@ -54,7 +54,9 @@ export default function Hero() {
   return (
     <section id="topo" className="hero">
       <Reveal>
-        <div className="eyebrow">Business Intelligence · RevOps · Martech</div>
+        <div className="eyebrow hero-eyebrow">
+          Business Intelligence · RevOps · Martech
+        </div>
         <h1 className="hero-title">
           Onde dados viram <span>decisão.</span>
         </h1>
