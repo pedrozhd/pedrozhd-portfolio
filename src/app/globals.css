@@ -546,6 +546,12 @@ img {
   object-fit: cover;
 }
 
+/* Imagens largas (ex.: assinatura de e-mail) que não podem ser cortadas:
+   mostra a peça inteira, centralizada sobre o fundo branco do card. */
+.project-img--contain img {
+  object-fit: contain;
+}
+
 .project-body {
   padding: 24px 26px 28px;
   flex: 1;

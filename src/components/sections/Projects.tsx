@@ -45,7 +45,11 @@ export default function Projects() {
                   </svg>
                 </div>
 
-                <div className="project-img">
+                <div
+                  className={`project-img${
+                    p.imageFit === "contain" ? " project-img--contain" : ""
+                  }`}
+                >
                   <Image
                     src={p.image}
                     alt={p.imageAlt}

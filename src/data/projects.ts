@@ -12,6 +12,8 @@ export interface Project {
   accent: string;
   image: string;
   imageAlt: string;
+  /** "contain" para imagens largas que não podem ser cortadas (mostra inteira). Padrão: cover. */
+  imageFit?: "cover" | "contain";
   title: string;
   en: string;
   /** HTML estático e confiável (com <strong> de destaque). */
@@ -45,6 +47,7 @@ export const projects: Project[] = [
     accent: "--a2",
     image: "/assets/proj-assinaturas.png",
     imageAlt: "Automação de assinaturas de e-mail self-service",
+    imageFit: "contain",
     title: "Automação de Assinaturas",
     en: "Self-service email signature generator",
     description:
