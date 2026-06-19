@@ -1,27 +1,67 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Archivo, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Providers } from "./providers";
 import "./globals.css";
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://pedrofranca.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Pedro França | Data Analysis & Revenue Operations",
+  metadataBase: new URL(siteUrl),
+  title: "Pedro França | Business Intelligence · RevOps · Martech",
   description:
-    "Portfolio de Pedro França — Data Analysis & Revenue Operations na StartSe. Dashboards em Power BI e Looker Studio, SQL, Python e automações.",
+    "Onde dados viram decisão. Pedro França — Business Intelligence, Revenue Operations e Martech na StartSe. Dashboards, automações e agentes de IA.",
   keywords: [
     "pedro frança",
-    "data analyst",
+    "business intelligence",
     "revenue operations",
+    "martech",
     "power bi",
-    "looker studio",
     "bigquery",
+    "sql",
+    "python",
+    "automação",
+    "agentes de ia",
     "startse",
-    "portfolio",
-    "analytics",
   ],
+  authors: [{ name: "Pedro França" }],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Pedro França | Data Analysis & Revenue Operations",
+    title: "Pedro França | Business Intelligence · RevOps · Martech",
     description:
-      "Portfolio de dados com dashboards em Power BI e Looker Studio. Especialista em RevOps e Growth.",
+      "Onde dados viram decisão. Dashboards, automações e agentes de IA na StartSe.",
     type: "website",
+    locale: "pt_BR",
+    url: siteUrl,
+    siteName: "Pedro França",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pedro França | Business Intelligence · RevOps · Martech",
+    description: "Onde dados viram decisão.",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f4f1ea",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -30,15 +70,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html
+      lang="pt-BR"
+      className={`${archivo.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
-        {/* Background decorative elements */}
-        <div className="bg-grid" />
-        <div className="bg-gradient-blob bg-blob-1" />
-        <div className="bg-gradient-blob bg-blob-2" />
-        <div className="bg-gradient-blob bg-blob-3" />
-
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
