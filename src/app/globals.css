@@ -1,5 +1,5 @@
 /* ============================================
-   PEDRO FRANÇA — PORTFÓLIO
+   PEDRO FRANÇA · PORTFÓLIO
    Design system editorial / paper-warm
    ============================================ */
 
@@ -40,7 +40,7 @@
   --pad-x: 32px;
   --nav-h: 84px;
 
-  /* Tipografia (via next/font — ver layout.tsx) */
+  /* Tipografia (via next/font, ver layout.tsx) */
   --font-display: var(--font-bricolage), "Bricolage Grotesque", sans-serif;
   --font-body: var(--font-archivo), "Archivo", -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;

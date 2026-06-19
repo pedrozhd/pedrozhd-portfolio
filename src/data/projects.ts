@@ -27,7 +27,7 @@ export const projects: Project[] = [
     barLabel: "01 · BI / DASHBOARDS",
     accent: "--a1",
     image: "/assets/proj-farmers-hunters.jpg",
-    imageAlt: "Dashboard Farmers & Hunters — performance comercial B2B",
+    imageAlt: "Dashboard Farmers & Hunters: performance comercial B2B",
     title: "Farmers & Hunters",
     en: "Real-time B2B sales performance panel",
     description:
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     title: "Automação de Assinaturas",
     en: "Self-service email signature generator",
     description:
-      "Com a alta rotatividade e todo mundo precisando de assinatura de e-mail, o contato com o designer virou gargalo. Criei uma automação <strong>self-service</strong>: a pessoa preenche um formulário e recebe a assinatura pronta no <strong>Slack</strong> em segundos — um workflow no <strong>Make.com</strong> que usa o <strong>Gemini</strong> para gerar a imagem com os dados certos.",
+      "Com a alta rotatividade e todo mundo precisando de assinatura de e-mail, o contato com o designer virou gargalo. Criei uma automação <strong>self-service</strong>: a pessoa preenche um formulário e recebe a assinatura pronta no <strong>Slack</strong> em segundos: um workflow no <strong>Make.com</strong> que usa o <strong>Gemini</strong> para gerar a imagem com os dados certos.",
     stats: [
       { value: "Self-service", label: "sem designer no loop", accent: true },
       { value: "Slack", label: "entrega em segundos" },
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     title: "Receita Gerencial",
     en: "Managerial revenue recognition",
     description:
-      "A empresa sabia <strong>quando vendia</strong>, mas não quando essa receita se distribuía no tempo e virava dinheiro de fato. Construí um <strong>Power BI</strong> que conecta a receita <strong>contábil à gerencial</strong>, mostrando o reconhecimento ao longo do tempo — para que áreas além da contabilidade entendam e usem essa relação.",
+      "A empresa sabia <strong>quando vendia</strong>, mas não quando essa receita se distribuía no tempo e virava dinheiro de fato. Construí um <strong>Power BI</strong> que conecta a receita <strong>contábil à gerencial</strong>, mostrando o reconhecimento ao longo do tempo, para que áreas além da contabilidade entendam e usem essa relação.",
     stats: [
       { value: "Contábil ⇄ Gerencial", label: "receita reconhecida no tempo", accent: true },
       { value: "+ áreas", label: "além da contabilidade" },

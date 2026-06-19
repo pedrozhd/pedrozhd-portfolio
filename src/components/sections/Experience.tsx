@@ -14,7 +14,7 @@ export default function Experience() {
         <div className="exp-row">
           <div>
             <div className="exp-when-tag">Atual</div>
-            <div className="exp-date">10/2025 – presente</div>
+            <div className="exp-date">10/2025 até o presente</div>
           </div>
           <div>
             <h3 className="exp-title">
@@ -44,10 +44,10 @@ export default function Experience() {
           <div>
             <p className="exp-note">
               A StartSe é minha{" "}
-              <strong>primeira experiência profissional</strong> — e onde
+              <strong>primeira experiência profissional</strong>, e onde
               construí tudo acima, do BI ao desenvolvimento de agentes de IA.
               <span className="en">
-                StartSe is my first professional role — where I built everything
+                StartSe is my first professional role, where I built everything
                 above, from BI to AI agents.
               </span>
             </p>

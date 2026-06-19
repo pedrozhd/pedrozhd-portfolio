@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Pedro França | Business Intelligence · RevOps · Martech",
   description:
-    "Onde dados viram decisão. Pedro França — Business Intelligence, Revenue Operations e Martech na StartSe. Dashboards, automações e agentes de IA.",
+    "Onde dados viram decisão. Pedro França: Business Intelligence, Revenue Operations e Martech na StartSe. Dashboards, automações e agentes de IA.",
   keywords: [
     "pedro frança",
     "business intelligence",

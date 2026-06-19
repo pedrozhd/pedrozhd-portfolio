@@ -1,4 +1,4 @@
-# Portfólio — Pedro França
+# Portfólio de Pedro França
 
 Portfólio pessoal. Business Intelligence · RevOps · Martech.
 

@@ -34,7 +34,7 @@ export default function About() {
             </p>
             <div className="quote">
               <p>
-                &ldquo;O que mais me move não é a ferramenta em si — é o problema
+                &ldquo;O que mais me move não é a ferramenta em si, é o problema
                 que ela resolve.&rdquo;
               </p>
             </div>

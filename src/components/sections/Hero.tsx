@@ -73,7 +73,7 @@ export default function Hero() {
             >
               <CornerShape shape={d.shape} />
               <div className="domain-head">
-                <span className="domain-num">{d.num} — DOMÍNIO</span>
+                <span className="domain-num">{d.num} · DOMÍNIO</span>
                 <span className={`domain-ico domain-ico--${d.shape}`} />
               </div>
               <div className="domain-bottom">
@@ -99,7 +99,7 @@ export default function Hero() {
           <div className="intro-card">
             <p className="intro-text">
               Transformo dados em insights que ajudam times a tomar decisões
-              melhores — dashboards que viram ação, automações e agentes de IA
+              melhores: dashboards que viram ação, automações e agentes de IA
               que escalam processos. <span>Na StartSe.</span>
             </p>
             <div className="tag-row">
