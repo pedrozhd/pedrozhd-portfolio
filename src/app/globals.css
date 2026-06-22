@@ -241,7 +241,15 @@ img {
   max-width: 900px;
 }
 
-.hero-title span {
+.hero-title-slot {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.hero-title-word {
+  display: inline-block;
   color: var(--a1);
 }
 

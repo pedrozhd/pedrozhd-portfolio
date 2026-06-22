@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import Reveal from "@/components/Reveal";
 
 const domains = [
@@ -27,6 +29,8 @@ const domains = [
   },
 ];
 
+const words = ["decisão.", "impacto.", "resultado.", "ação."];
+
 const tags = ["SQL", "BigQuery", "Power BI", "Python", "Automação · IA"];
 
 function CornerShape({ shape }: { shape: "square" | "circle" | "diamond" }) {
@@ -51,6 +55,16 @@ function CornerShape({ shape }: { shape: "square" | "circle" | "diamond" }) {
 }
 
 export default function Hero() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setTimeout(
+      () => setWordIndex((i) => (i + 1) % words.length),
+      2400
+    );
+    return () => clearTimeout(id);
+  }, [wordIndex]);
+
   return (
     <section id="topo" className="hero">
       <Reveal>
@@ -58,7 +72,21 @@ export default function Hero() {
           Business Intelligence · RevOps · Martech
         </div>
         <h1 className="hero-title">
-          Onde dados viram <span>decisão.</span>
+          Onde dados viram{" "}
+          <span className="hero-title-slot">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={words[wordIndex]}
+                className="hero-title-word"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {words[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </h1>
         <p className="hero-sub">Where data becomes decision.</p>
       </Reveal>
