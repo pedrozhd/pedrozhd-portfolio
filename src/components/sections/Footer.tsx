@@ -146,7 +146,6 @@ export default function Footer() {
         {/* Barra inferior */}
         <div className="footer-bar">
           <span className="footer-copy">© 2026 · Pedro França</span>
-          <span className="footer-tagline">Negócios × Dados × IA</span>
           <BackToTop />
         </div>
 
