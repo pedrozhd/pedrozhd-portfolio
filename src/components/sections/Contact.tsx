@@ -37,10 +37,6 @@ export default function Contact() {
         </div>
       </Reveal>
 
-      <div className="footer-row">
-        <span className="footer-name">Pedro França</span>
-        <span className="footer-meta">© 2026 · Negócios × Dados × IA</span>
-      </div>
     </section>
   );
 }
