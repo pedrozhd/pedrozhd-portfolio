@@ -569,6 +569,12 @@ img {
   display: flex;
   flex-direction: column;
   height: 100%;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
 
 .project-bar {
