@@ -26,7 +26,11 @@ export default function Navbar() {
             </a>
           ))}
           <ThemeToggle />
-          <a href="#contato" className="nav-cta">
+          <a
+            href="#"
+            className="nav-cta"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }}
+          >
             Contato
           </a>
           <button
