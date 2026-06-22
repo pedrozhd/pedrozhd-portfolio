@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Reveal from "@/components/Reveal";
+import Typewriter from "@/components/Typewriter";
 
 const domains = [
   {
@@ -68,9 +69,11 @@ export default function Hero() {
   return (
     <section id="topo" className="hero">
       <Reveal>
-        <div className="eyebrow hero-eyebrow">
-          Business Intelligence · RevOps · Martech
-        </div>
+        <Typewriter
+          text="Business Intelligence · RevOps · Martech"
+          className="eyebrow hero-eyebrow"
+          duration={1.6}
+        />
         <h1 className="hero-title">
           Onde dados viram{" "}
           <span className="hero-title-slot">
