@@ -36,8 +36,12 @@ export default function PhotoTilt({ children, className = "" }: PhotoTiltProps) 
     const inner = innerRef.current;
     if (!wrap || !inner) return;
 
-    // Disable on touch devices — no mouse to track
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    // Always start the sway — skip mouse tracking on touch devices
+    animRef.current = requestAnimationFrame(sway);
+
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return () => cancelAnimationFrame(animRef.current);
+    }
 
     const onMove = (e: MouseEvent) => {
       const rect = inner.getBoundingClientRect();
@@ -71,7 +75,6 @@ export default function PhotoTilt({ children, className = "" }: PhotoTiltProps) 
       }, 620);
     };
 
-    animRef.current = requestAnimationFrame(sway);
     wrap.addEventListener("mouseenter", onEnter);
     wrap.addEventListener("mousemove", onMove);
     wrap.addEventListener("mouseleave", onLeave);
