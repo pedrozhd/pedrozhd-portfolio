@@ -416,6 +416,37 @@ img {
   align-items: stretch;
 }
 
+.photo-tilt-wrap {
+  perspective: 800px;
+  perspective-origin: center center;
+  cursor: default;
+}
+
+.photo-tilt-inner {
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+}
+
+.photo-tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--rad);
+  background: radial-gradient(
+    circle at var(--shine-x) var(--shine-y),
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.photo-tilt-wrap:hover .photo-tilt-shine {
+  opacity: 1;
+}
+
 .hero-photo {
   position: relative;
   width: 200px;
@@ -1271,6 +1302,11 @@ img {
 
   .hero-intro {
     grid-template-columns: 1fr;
+  }
+
+  .photo-tilt-wrap,
+  .photo-tilt-inner {
+    width: 100%;
   }
 
   .hero-photo {

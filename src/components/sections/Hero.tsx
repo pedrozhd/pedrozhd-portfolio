@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import Typewriter from "@/components/Typewriter";
+import PhotoTilt from "@/components/PhotoTilt";
 
 const domains = [
   {
@@ -135,15 +136,17 @@ export default function Hero() {
 
       <Reveal delay={0.2}>
         <div className="hero-intro">
-          <div className="hero-photo">
-            <Image
-              src="/assets/pedro-foto.jpg"
-              alt="Pedro França na StartSe"
-              fill
-              sizes="(max-width: 768px) 100vw, 200px"
-              priority
-            />
-          </div>
+          <PhotoTilt>
+            <div className="hero-photo">
+              <Image
+                src="/assets/pedro-foto.jpg"
+                alt="Pedro França na StartSe"
+                fill
+                sizes="(max-width: 768px) 100vw, 200px"
+                priority
+              />
+            </div>
+          </PhotoTilt>
           <div className="intro-card">
             <p className="intro-text">
               Transformo dados em insights que ajudam times a tomar decisões
