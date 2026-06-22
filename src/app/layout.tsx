@@ -60,8 +60,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f1ea",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f1ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#16130f" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -74,6 +77,14 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${archivo.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        {/* Lê o tema antes da hidratação para evitar flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();`,
+          }}
+        />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>
