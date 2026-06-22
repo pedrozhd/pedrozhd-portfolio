@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Project } from "@/data/projects";
 
 const cardVariants = {
@@ -15,6 +16,18 @@ const arrowVariants = {
 };
 
 export default function ProjectCard({ p }: { p: Project }) {
+  const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const showDetails = hovered || isMobile;
+
   return (
     <motion.article
       className="project-card"
@@ -23,6 +36,8 @@ export default function ProjectCard({ p }: { p: Project }) {
       initial="rest"
       whileHover="hover"
       transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
     >
       <div className="project-bar">
         <span className="project-bar-label">{p.barLabel}</span>
@@ -62,21 +77,34 @@ export default function ProjectCard({ p }: { p: Project }) {
       <div className="project-body">
         <h3 className="project-title">{p.title}</h3>
         <p className="project-en">{p.en}</p>
-        <p
-          className="project-desc"
-          dangerouslySetInnerHTML={{ __html: p.description }}
-        />
 
-        <div className="project-stats">
-          {p.stats.map((s) => (
-            <div key={s.value}>
-              <div className={`stat-num ${s.accent ? "accent" : "light"}`}>
-                {s.value}
+        <AnimatePresence initial={false}>
+          {showDetails && (
+            <motion.div
+              key="details"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              style={{ overflow: "hidden" }}
+            >
+              <p
+                className="project-desc"
+                dangerouslySetInnerHTML={{ __html: p.description }}
+              />
+              <div className="project-stats">
+                {p.stats.map((s) => (
+                  <div key={s.value}>
+                    <div className={`stat-num ${s.accent ? "accent" : "light"}`}>
+                      {s.value}
+                    </div>
+                    <div className="stat-label">{s.label}</div>
+                  </div>
+                ))}
               </div>
-              <div className="stat-label">{s.label}</div>
-            </div>
-          ))}
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="tags">
           {p.tags.map((t) => (

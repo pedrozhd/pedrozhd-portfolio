@@ -553,12 +553,10 @@ img {
   gap: 24px;
 }
 
-/* Cada card é embrulhado num <Reveal> (item do grid). Força o wrapper e a
-   card a preencherem a altura da linha, para que os stats/tags fiquem
-   alinhados entre cards da mesma linha mesmo com descrições de tamanhos
-   diferentes. */
+/* Wrapper do Reveal alinha ao topo — altura é determinada pelo conteúdo
+   expandido via hover, não forçada pela linha do grid. */
 .projects-grid > * {
-  height: 100%;
+  align-self: start;
 }
 
 .project-card {
