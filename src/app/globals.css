@@ -109,6 +109,18 @@ img {
   max-width: 100%;
 }
 
+/* Registra a custom property para animação de ângulo do conic-gradient */
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes gradient-rotate {
+  from { --gradient-angle: 0deg; }
+  to   { --gradient-angle: 360deg; }
+}
+
 @keyframes floaty {
   0%,
   100% {
@@ -420,12 +432,25 @@ img {
 }
 
 .intro-card {
-  background: var(--ink);
   border-radius: var(--rad);
   padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Gradient border animado */
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(var(--ink), var(--ink)),
+    conic-gradient(
+      from var(--gradient-angle),
+      var(--a1) 0%,
+      var(--a2) 33%,
+      var(--a3) 66%,
+      var(--a1) 100%
+    );
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  animation: gradient-rotate 5s linear infinite;
 }
 
 .intro-text {
