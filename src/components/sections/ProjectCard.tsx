@@ -17,16 +17,9 @@ const arrowVariants = {
 
 export default function ProjectCard({ p }: { p: Project }) {
   const [hovered, setHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  const showDetails = hovered || isMobile;
+  const showDetails = hovered || expanded;
 
   return (
     <motion.article
@@ -38,6 +31,7 @@ export default function ProjectCard({ p }: { p: Project }) {
       transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
+      onClick={() => setExpanded((v) => !v)}
     >
       <div className="project-bar">
         <span className="project-bar-label">{p.barLabel}</span>
@@ -53,6 +47,7 @@ export default function ProjectCard({ p }: { p: Project }) {
           strokeLinejoin="round"
           aria-hidden="true"
           variants={arrowVariants}
+          animate={{ rotate: expanded ? 45 : 0 }}
           transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
         >
           <line x1="7" y1="17" x2="17" y2="7" />

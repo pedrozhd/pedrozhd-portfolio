@@ -569,6 +569,7 @@ img {
   height: 100%;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .project-card:hover {
