@@ -23,6 +23,7 @@ const STRIDE = 52;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string>("");
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,6 +36,26 @@ export default function Navbar() {
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
+
+  // Scroll-spy: a lâmpada segue a seção que cruza o centro da viewport
+  useEffect(() => {
+    const els = links
+      .map((l) => document.querySelector(l.href))
+      .filter((el): el is HTMLElement => el instanceof HTMLElement);
+    if (!els.length) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length) setActive("#" + visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   const navigate = (href: string | null) => {
     setOpen(false);
@@ -68,13 +89,39 @@ export default function Navbar() {
           Pedro França
         </a>
 
-        {/* Desktop nav */}
+        {/* Desktop: pílula tubelight central */}
+        <div className="nav-tube">
+          {links.map((l) => {
+            const isActive = active === l.href;
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className={`nav-tube-item${isActive ? " is-active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActive(l.href);
+                  navigate(l.href);
+                }}
+              >
+                {l.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-lamp"
+                    className="nav-tube-lamp"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  >
+                    <span className="nav-tube-glow" />
+                  </motion.span>
+                )}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Desktop: cluster direito */}
         <div className="nav-links">
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="nav-link">
-              {l.label}
-            </a>
-          ))}
           <ThemeToggle />
           <a
             href="#"

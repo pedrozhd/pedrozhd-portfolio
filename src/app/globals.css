@@ -253,6 +253,84 @@ img {
   opacity: 0.85;
 }
 
+/* ============================================
+   PÍLULA TUBELIGHT (desktop) — lâmpada deslizante
+   ============================================ */
+.nav-tube {
+  --acc: var(--a1);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  border-radius: var(--rad-pill);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 22px rgba(31, 29, 26, 0.07);
+}
+
+[data-theme="dark"] .nav-tube {
+  background: rgba(38, 35, 30, 0.55);
+  border-color: var(--dark-line);
+}
+
+.nav-tube-item {
+  position: relative;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 8px 18px;
+  border-radius: var(--rad-pill);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-tube-item:hover {
+  color: var(--acc);
+}
+
+.nav-tube-item.is-active {
+  color: var(--acc);
+}
+
+/* Lâmpada — halo translúcido que desliza entre os itens (layoutId) */
+.nav-tube-lamp {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--rad-pill);
+  background: color-mix(in srgb, var(--acc) 11%, transparent);
+}
+
+/* Barra de luz no topo da lâmpada + halo borrado */
+.nav-tube-glow {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 4px;
+  border-radius: 999px 999px 0 0;
+  background: var(--acc);
+}
+
+.nav-tube-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 24px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--acc) 22%, transparent);
+  filter: blur(12px);
+}
+
 /* SVG filter helper — ocupa zero espaço */
 .gooey-svg-filter {
   position: absolute;
@@ -1341,6 +1419,10 @@ img {
   }
 
   .nav-links {
+    display: none;
+  }
+
+  .nav-tube {
     display: none;
   }
 
