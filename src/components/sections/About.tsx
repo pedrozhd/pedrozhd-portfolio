@@ -17,14 +17,13 @@ export default function About() {
         <Reveal delay={0.1}>
           <div>
             <p className="about-body">
-              Na StartSe atuo com{" "}
-              <strong>
-                Business Intelligence, Revenue Operations e Martech
-              </strong>
-              , transformando dados em insights que ajudam times a tomar decisões
-              melhores, construindo dashboards que traduzem números em ações e
-              desenvolvendo automações e agentes de IA para otimizar e escalar
-              processos.
+              Tenho um{" "}
+              <strong>perfil analítico e avançado para negócios</strong>: na
+              StartSe atuo com Business Intelligence, Revenue Operations e
+              Martech, transformando dados em insights que ajudam times a tomar
+              decisões melhores, construindo dashboards que traduzem números em
+              ações e desenvolvendo automações e agentes de IA para otimizar e
+              escalar processos.
             </p>
             <p className="about-body">
               No dia a dia uso SQL, BigQuery, Power BI, Python e ferramentas de
