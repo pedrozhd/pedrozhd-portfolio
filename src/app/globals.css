@@ -109,18 +109,6 @@ img {
   max-width: 100%;
 }
 
-/* Registra a custom property para animação de ângulo do conic-gradient */
-@property --gradient-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-@keyframes gradient-rotate {
-  from { --gradient-angle: 0deg; }
-  to   { --gradient-angle: 360deg; }
-}
-
 @keyframes floaty {
   0%,
   100% {
@@ -463,91 +451,6 @@ img {
   margin-top: 18px;
 }
 
-.domain-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 48px;
-}
-
-.domain-tile {
-  background: var(--acc);
-  border-radius: 14px;
-  padding: 24px;
-  min-height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
-
-.domain-corner {
-  position: absolute;
-  right: -20px;
-  top: -20px;
-  width: 140px;
-  height: 140px;
-  opacity: 0.14;
-  pointer-events: none;
-}
-
-.domain-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-}
-
-.domain-num {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.domain-ico {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.domain-ico--square {
-  border-radius: 4px;
-}
-
-.domain-ico--circle {
-  border-radius: 999px;
-}
-
-.domain-ico--diamond {
-  width: 16px;
-  height: 16px;
-  transform: rotate(45deg);
-}
-
-.domain-bottom {
-  margin-top: auto;
-  position: relative;
-}
-
-.domain-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 30px;
-  color: #fff;
-  line-height: 1;
-}
-
-.domain-desc {
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.88);
-  margin-top: 10px;
-}
-
 .hero-intro {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -608,20 +511,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Gradient border animado */
-  border: 2px solid transparent;
-  background-image:
-    linear-gradient(var(--ink), var(--ink)),
-    conic-gradient(
-      from var(--gradient-angle),
-      var(--a1) 0%,
-      var(--a2) 33%,
-      var(--a3) 66%,
-      var(--a1) 100%
-    );
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
-  animation: gradient-rotate 5s linear infinite;
+  background: var(--ink);
 }
 
 .intro-text {
@@ -1493,13 +1383,8 @@ img {
     display: flex;
   }
 
-  /* No mobile: esconde a eyebrow do hero e os tiles de domínio
-     (ficavam grandes demais empilhados) */
+  /* No mobile: esconde a eyebrow do hero (ficava grande demais) */
   .hero-eyebrow {
-    display: none;
-  }
-
-  .domain-grid {
     display: none;
   }
 
